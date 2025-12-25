@@ -41,7 +41,8 @@ function main { # ${snapshots_dir} ${snapshots_max_num}
     local snapshot
 
 	echo "<6>Checking: ${snapshots_dir}"
-	
+	echo "<6>Snapshots found: ${#snapshots[@]}. Threshold: ${snapshots_max_num}."
+
 	# exit
 	if [[ ${#snapshots[@]} -eq 0 ]]; then
 		echo "<3>ERROR: No snapshots found in ${snapshots_dir}"
@@ -50,7 +51,7 @@ function main { # ${snapshots_dir} ${snapshots_max_num}
 	
 	# exit
     if [ ${#snapshots[@]} -le ${snapshots_max_num} ]; then
-		echo "<6>Snapshots found: ${#snapshots[@]}. Threshold: ${snapshots_max_num}. Exiting ..."
+		echo "<6>Snapshots are below threshold. Exiting ..."
 		exit 0
 	fi
 
@@ -68,7 +69,7 @@ function main { # ${snapshots_dir} ${snapshots_max_num}
 	for snapshot in $(printf "%s\n" "${snapshots[@]}" | sort | head -n -${snapshots_max_num}); do
 		# sort: oldest up, newest down
 		# head -n -3: exclude the last/the newest <num> files
-		echo "<6>Removing old snapshot: ${snapshot}"
+		echo "<6>Removing surplus snapshot: ${snapshot}"
 		btrfs subvolume delete "${snapshot}"
 	done
 }
