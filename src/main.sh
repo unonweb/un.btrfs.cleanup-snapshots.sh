@@ -56,9 +56,10 @@ function main { # ${snapshots_dir} ${snapshots_max_num}
 
 	# exit
 	for snap in "${snapshots[@]}"; do
-		validate_snap_name "${snap}"
+		local name=$(basename "${snap}")
+		validate_snap_name "${name}"
 		if [[ ! ${?} -eq 0 ]]; then
-			echo "<3>ERROR: Invalid snapshot name format: ${snap}. Exiting ..."
+			echo "<3>ERROR: Invalid snapshot name format: ${name}. Exiting ..."
 			exit 1
 		fi
 	done
