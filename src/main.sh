@@ -39,6 +39,8 @@ function main { # ${snapshots_dir} ${snapshots_max_num}
 	local snapshots_max_num="${2}"
 	local snapshots=("${snapshots_dir}/"*)
     local snapshot
+
+	echo "<6>Checking: ${snapshots_dir}"
 	
 	# exit
 	if [[ ${#snapshots[@]} -eq 0 ]]; then
@@ -48,7 +50,7 @@ function main { # ${snapshots_dir} ${snapshots_max_num}
 	
 	# exit
     if [ ${#snapshots[@]} -le ${snapshots_max_num} ]; then
-		echo "<6>Number of snapshots ${#snapshots[@]} is not above threshold ${snapshots_max_num}. Exiting ..."
+		echo "<6>Snapshots found: ${#snapshots[@]}. Threshold: ${snapshots_max_num}. Exiting ..."
 		exit 0
 	fi
 
